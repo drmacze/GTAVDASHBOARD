@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#08080d">
+<title>GTA V iOS · Admin</title>
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<div class="ambient ambient-a" aria-hidden="true"></div><div class="ambient ambient-b" aria-hidden="true"></div>
+<section class="auth-screen" id="auth-screen">
+  <div class="auth-card">
+    <div class="brand-mark">V</div>
+    <span class="eyebrow">PRIVATE CONTROL CENTER</span>
+    <h1>GTA V iOS Admin</h1>
+    <p>Sign in with your existing admin token. It stays in this browser session only.</p>
+    <form id="login-form"><input id="admin-token" type="password" inputmode="numeric" autocomplete="off" placeholder="Admin token" required><button type="submit">Unlock dashboard</button></form>
+    <div class="auth-status" id="auth-status">Secure admin API connection.</div>
+  </div>
+</section>
+<div class="app" id="app" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><div class="brand-mark small">V</div><div><strong>GTAV Admin</strong><small>iOS Project</small></div></div>
+    <nav class="nav" aria-label="Dashboard">
+      <button class="nav-item active" data-page="overview"><span class="nav-icon">⌂</span><span>Overview</span></button>
+      <button class="nav-item" data-page="analytics"><span class="nav-icon">⌁</span><span>Analytics</span></button>
+      <button class="nav-item" data-page="releases"><span class="nav-icon">↗</span><span>Releases</span></button>
+      <button class="nav-item" data-page="mods"><span class="nav-icon">◇</span><span>Mods</span><b id="nav-mod-count">0</b></button>
+      <button class="nav-item" data-page="feedback"><span class="nav-icon">◎</span><span>Feedback</span><b id="nav-feedback-count">0</b></button>
+    </nav>
+    <div class="sidebar-foot"><a href="https://playgta5-1k8.pages.dev/home" target="_blank" rel="noopener">Open public site ↗</a><button id="logout">Lock dashboard</button></div>
+  </aside>
+  <div class="sidebar-scrim" id="sidebar-scrim"></div>
+  <main class="main">
+    <header class="topbar">
+      <button class="menu-button" id="menu-button" aria-label="Open navigation">☰</button>
+      <div class="top-search"><span>⌕</span><input id="global-search" placeholder="Search dashboard" autocomplete="off"></div>
+      <div class="top-actions"><span class="sync-state" id="sync-state"><i></i>Connected</span><span class="today" id="today"></span><button class="icon-button" id="refresh" title="Refresh">↻</button><button class="avatar-button" id="avatar-button">GT</button></div>
+    </header>
+    <section class="page active" id="page-overview">
+      <div class="page-title"><div><span class="eyebrow">CONTROL CENTER</span><h1>Overview</h1><p>Live project health, community activity and publishing status.</p></div><div class="page-actions"><button class="soft-button" data-jump="mods">+ Add mod</button><button class="primary-button" data-jump="releases">+ Publish update</button></div></div>
+      <div class="stat-grid">
+        <article class="stat-card glow"><small>Franklin users</small><strong id="stat-users">0</strong><span id="stat-users-today">0 today</span><div class="sparkline" id="spark-users"></div></article>
+        <article class="stat-card"><small>Questions</small><strong id="stat-questions">0</strong><span id="stat-questions-today">0 today</span><div class="sparkline" id="spark-questions"></div></article>
+        <article class="stat-card"><small>Site visits</small><strong id="stat-visits">0</strong><span>Public website</span><div class="stat-orb orange"></div></article>
+        <article class="stat-card"><small>Published mods</small><strong id="stat-mods">0</strong><span id="stat-mod-drafts">0 drafts</span><div class="stat-orb purple"></div></article>
+      </div>
+      <div class="overview-grid">
+        <article class="panel trend-panel"><div class="panel-head"><div><small>ACTIVITY</small><h2>Franklin usage</h2></div><div class="legend"><span><i class="pink"></i>Questions</span><span><i class="violet"></i>Users</span></div></div><div class="chart-wrap"><canvas id="trend-chart"></canvas></div></article>
+        <article class="panel"><div class="panel-head"><div><small>AUDIENCE</small><h2>Device mix</h2></div></div><div class="device-list" id="device-list"></div></article>
+        <article class="panel"><div class="panel-head"><div><small>INTENT</small><h2>Top topics</h2></div></div><div class="rank-list" id="topic-list"></div></article>
+      </div>
+      <div class="bottom-grid"><article class="panel"><div class="panel-head"><div><small>PUBLISHING</small><h2>Recent releases</h2></div><button class="text-button" data-jump="releases">View all</button></div><div class="compact-list" id="recent-releases"></div></article><article class="panel"><div class="panel-head"><div><small>COMMUNITY</small><h2>Latest feedback</h2></div><button class="text-button" data-jump="feedback">Open inbox</button></div><div class="compact-list" id="recent-feedback"></div></article></div>
+    </section>
+    <section class="page" id="page-analytics">
+      <div class="page-title"><div><span class="eyebrow">FRANKLIN</span><h1>Analytics</h1><p>Anonymous usage trends, sessions, topics and device distribution.</p></div><button class="soft-button" id="export-analytics">Export JSON</button></div>
+      <div class="analytics-layout"><article class="panel span-2"><div class="panel-head"><div><small>LAST 14 DAYS</small><h2>Questions & users</h2></div></div><div class="chart-wrap tall"><canvas id="analytics-chart"></canvas></div></article><article class="panel"><div class="panel-head"><div><small>TOP PAGES</small><h2>Where Franklin is used</h2></div></div><div class="rank-list" id="page-list"></div></article></div>
+      <article class="panel table-panel"><div class="panel-head"><div><small>SESSIONS</small><h2>Recent activity</h2></div><input class="inline-search" id="session-search" placeholder="Search sessions"></div><div class="table-wrap"><table><thead><tr><th>User</th><th>Session</th><th>Page</th><th>Device</th><th>Language</th><th>Questions</th><th>Last active</th></tr></thead><tbody id="sessions-body"></tbody></table></div></article>
+    </section>
+    <section class="page" id="page-releases">
+      <div class="page-title"><div><span class="eyebrow">CONTENT</span><h1>Releases</h1><p>Publish and manage update cards on the public Updates page.</p></div></div>
+      <div class="editor-grid"><article class="panel editor"><div class="panel-head"><div><small>EDITOR</small><h2 id="release-form-title">New release</h2></div></div><form id="release-form" class="form-grid"><input type="hidden" id="release-id"><label>Title<input id="release-title" required maxlength="140" placeholder="28 Oct update"></label><div class="two-col"><label>Release date<input id="release-date" type="date" required></label><label>Category<select id="release-category"><option>Update</option><option>Hotfix</option><option>Test build</option><option>Announcement</option><option>Launcher</option><option>macOS</option></select></label></div><label>Version / build<input id="release-version" maxlength="80" placeholder="Build 28 Oct 2026"></label><label>Short summary<textarea id="release-summary" maxlength="500" placeholder="Short card description"></textarea></label><label>Release details<textarea id="release-body" class="large" maxlength="12000" placeholder="Full release notes"></textarea></label><div class="two-col"><label>Download URL<input id="release-download" type="url" placeholder="https://..."></label><label>Image URL<input id="release-image" type="url" placeholder="https://..."></label></div><label class="check-row"><input id="release-published" type="checkbox" checked><span>Publish immediately</span></label><div class="form-actions"><button class="primary-button" id="release-save" type="submit">Publish release</button><button class="soft-button" id="release-cancel" type="button" hidden>Cancel</button><span id="release-status"></span></div></form></article><article class="panel"><div class="panel-head"><div><small>HISTORY</small><h2>Release library</h2></div><span class="count-pill" id="release-count">0</span></div><div class="manager-list" id="release-list"></div></article></div>
+    </section>
+    <section class="page" id="page-mods">
+      <div class="page-title"><div><span class="eyebrow">LIBRARY</span><h1>Mods</h1><p>Publish mods, DLC, graphics and language packs. Photos upload directly from Gallery.</p></div></div>
+      <div class="editor-grid"><article class="panel editor"><div class="panel-head"><div><small>EDITOR</small><h2 id="mod-form-title">Add mod</h2></div></div><form id="mod-form" class="form-grid"><input type="hidden" id="mod-id"><div class="two-col"><label>Mod name<input id="mod-title" required maxlength="140" placeholder="Mod name"></label><label>Category<select id="mod-category"><option value="modpack">Mod Pack</option><option value="dlc">DLC</option><option value="graphics">Graphics</option><option value="language">Language</option></select></label></div><label>Subtitle<input id="mod-subtitle" maxlength="120" placeholder="Short context"></label><label>Description<textarea id="mod-description" maxlength="1200" placeholder="What does this mod add or change?"></textarea></label><label>Download link<input id="mod-download" type="url" required placeholder="https://gofile.io/d/..."></label><div class="gallery-field"><div class="gallery-head"><div><strong>Thumbnails</strong><small>1 photo = static · 2+ photos = slider · max 12</small></div><label class="gallery-button">Choose photos<input id="mod-photos" type="file" accept="image/*" multiple hidden></label></div><div class="gallery-grid" id="gallery-grid"><div class="gallery-empty">No photos selected.</div></div></div><label id="preset-field">Graphics preset<input id="mod-preset" placeholder="assets/...json or https://..."></label><div class="two-col"><label>Tags<input id="mod-tags" maxlength="360" placeholder="Lighting, Realism"></label><label id="language-code-field">Language code<input id="mod-language-code" maxlength="8" placeholder="ID"></label></div><div class="two-col"><label>Order<input id="mod-sort" type="number" min="0" max="9999" value="100"></label><label class="check-row align-end"><input id="mod-published" type="checkbox" checked><span>Publish immediately</span></label></div><div class="form-actions"><button class="primary-button" id="mod-save" type="submit">Publish mod</button><button class="soft-button" id="mod-cancel" type="button" hidden>Cancel</button><span id="mod-status"></span></div></form></article><article class="panel"><div class="panel-head"><div><small>CATALOG</small><h2>Mod library</h2></div><span class="count-pill" id="mod-count">0</span></div><input class="inline-search wide" id="mod-search" placeholder="Search mods"><div class="manager-list" id="mod-list"></div></article></div>
+    </section>
+    <section class="page" id="page-feedback">
+      <div class="page-title"><div><span class="eyebrow">COMMUNITY</span><h1>Feedback & Issues</h1><p>Private reports, ratings and reproducible issue details.</p></div><button class="soft-button" id="feedback-refresh">Refresh inbox</button></div>
+      <div class="feedback-stats" id="feedback-stats"></div><article class="panel"><div class="feedback-filters"><select id="feedback-target"><option value="">All experiences</option><option value="helper">Franklin helper</option><option value="launcher">Launcher</option></select><select id="feedback-kind"><option value="">All types</option><option value="feedback">Feedback</option><option value="issue">Issue</option></select><select id="feedback-rating"><option value="">All ratings</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select><input id="feedback-search" placeholder="Search reports"></div><div class="feedback-list" id="feedback-list"></div></article>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js?v=1" defer></script>
+</body>
+</html>
